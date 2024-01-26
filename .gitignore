@@ -4,3 +4,4 @@ build/
 scratch.txt
 *.autosave
 *.zip
+compile_commands.json
