@@ -1,0 +1,14 @@
+name: Tests
+
+on:
+  push:
+
+jobs:
+  tests:
+    name: "Build Test"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run doctest
+        run: make && make test
