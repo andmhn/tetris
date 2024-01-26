@@ -3,3 +3,4 @@ build/
 .gdb_history
 scratch.txt
 *.autosave
+*.zip

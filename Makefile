@@ -45,6 +45,8 @@ CPPFLAGS := $(INC_FLAGS) -MMD -MP -O0
 
 .PHONY: bin test run clean analyze format
 
+#=========  Targets  ==========
+
 all: $(BIN_DIR)/$(TARGET_MAIN) $(BIN_DIR)/$(TARGET_TEST)
 
 bin: $(BIN_DIR)/$(TARGET_MAIN)
@@ -63,11 +65,6 @@ run-debug: $(BIN_DIR)/$(TARGET_MAIN)
 test-debug: $(BIN_DIR)/$(TARGET_TEST)
 	gdb $^
 
-# clean and then created a zipped copy of this folder
-zip: clean
-	d=`pwd | xargs basename`; rm -f $$d.zip
-	d=`pwd | xargs basename`; cd ../; zip -r $$d/$$d.zip $$d;
-
 $(BIN_DIR)/$(TARGET_MAIN): $(MAIN_OBJS)
 	$(MKDIR_P) $(dir $@)
 	$(CXX) $(MAIN_OBJS) -o $@ $(LDFLAGS)
@@ -83,6 +80,11 @@ $(BUILD_DIR)/%.cpp.o: %.cpp
 
 clean:
 	$(RM) -r $(BUILD_DIR) $(BIN_DIR)
+
+# clean and then created a zipped copy of this folder
+zip: clean
+	d=`pwd | xargs basename`; rm -f $$d.zip
+	d=`pwd | xargs basename`; cd ../; zip -r $$d/$$d.zip $$d -x "$$d/.git/*";
 
 analyze:
 	cppcheck --enable=all $(MAIN_SRCS)
