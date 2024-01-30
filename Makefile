@@ -21,19 +21,6 @@ MAIN_DIR ?= ./drivers
 INC_FLAGS ?= -I ./include
 MKDIR_P ?= mkdir -p
 
-#=========== uncomment to cross compile for Windows ================
-#export CPLUS_INCLUDE_PATH=
-#CXX := x86_64-w64-mingw32-g++
-#LDFLAGS := -L ~/repos/SFML-2.6.1/lib -static-libgcc -static-libstdc++
-#INC_FLAGS += -I /home/anand/repos/SFML-2.6.1/include
-
-#----------- commands to run -----------------------------------------
-#### cp /home/anand/repos/SFML-2.6.1/bin/* bin
-#### cp /usr/lib/gcc/x86_64-w64-mingw32/10-win32/libgcc_s_seh-1.dll \
-####    /usr/lib/gcc/x86_64-w64-mingw32/10-win32/libstdc++-6.dll bin
-#### make bin
-#=====================================================================
-
 LDFLAGS += -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system
 
 MAIN_SRCS := $(shell find $(SRC_DIRS) $(MAIN_DIR)/main.cpp -name "*.cpp")
