@@ -75,7 +75,7 @@ clean:
 # clean and then created a zipped copy of this folder
 zip: clean
 	d=`pwd | xargs basename`; rm -f $$d.zip
-	d=`pwd | xargs basename`; cd ../; zip -r $$d/$$d.zip $$d -x "$$d/.git/*";
+	d=`pwd | xargs basename`; cd ../; zip -r $$d/$$d.zip $$d -x "$$d/.git/*" "$$d/.cache/*";
 
 analyze:
 	cppcheck --enable=all $(MAIN_SRCS)

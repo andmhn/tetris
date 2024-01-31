@@ -1,12 +1,28 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
+#include "components.h"
+#include "globals.h"
+
+sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Tetris",
+                        sf::Style::Close);
+Score score = Score();
+
+void draw_border_col(int pos, sf::Color color);
+void draw_border_row(int pos, sf::Color color);
+void draw_border_col(int pos);
+void draw_border_row(int pos);
+void draw_grid_debug();
+
+void key_handler(sf::Keyboard::Key key, sf::RectangleShape &box);
+
 int instance()
 {
-    sf::RenderWindow window(sf::VideoMode(300, 200), "Tetris",
-                            sf::Style::Close);
+    window.setFramerateLimit(60);
 
-    window.setPosition({10, 10});
+    auto box = sf::RectangleShape({GRID_SIZE, GRID_SIZE});
+    box.setFillColor(sf::Color::Cyan);
+    box.setPosition(Grid::at(4, 19));
 
     while (window.isOpen())
     {
@@ -15,8 +31,20 @@ int instance()
         {
             if (evnt.type == sf::Event::Closed)
                 window.close();
+
+            if (evnt.type == sf::Event::KeyPressed)
+            {
+                key_handler(evnt.key.code, box);
+            }
         }
         window.clear();
+
+        Grid::draw(box);
+
+        draw_border_col(SEPERATOR_POS);
+        draw_grid_debug();
+
+        score.draw();
 
         window.display();
     }
