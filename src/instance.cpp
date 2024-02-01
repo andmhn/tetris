@@ -4,8 +4,7 @@
 #include "components.h"
 #include "globals.h"
 
-sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Tetris",
-                        sf::Style::Close);
+sf::RenderWindow *window;
 Score score = Score();
 
 void draw_border_col(int pos, sf::Color color);
@@ -18,26 +17,28 @@ void key_handler(sf::Keyboard::Key key, sf::RectangleShape &box);
 
 int instance()
 {
-    window.setFramerateLimit(60);
+    window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Tetris",
+                                  sf::Style::Close);
+    window->setFramerateLimit(60);
 
     auto box = sf::RectangleShape({GRID_SIZE, GRID_SIZE});
     box.setFillColor(sf::Color::Cyan);
     box.setPosition(Grid::at(4, 19));
 
-    while (window.isOpen())
+    while (window->isOpen())
     {
         sf::Event evnt;
-        while (window.pollEvent(evnt))
+        while (window->pollEvent(evnt))
         {
             if (evnt.type == sf::Event::Closed)
-                window.close();
+                window->close();
 
             if (evnt.type == sf::Event::KeyPressed)
             {
                 key_handler(evnt.key.code, box);
             }
         }
-        window.clear();
+        window->clear();
 
         Grid::draw(box);
 
@@ -46,7 +47,8 @@ int instance()
 
         score.draw();
 
-        window.display();
+        window->display();
     }
+    delete window;
     return 0;
 }

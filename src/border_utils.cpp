@@ -3,7 +3,7 @@
 
 #include "globals.h"
 
-extern sf::RenderWindow window;
+extern sf::RenderWindow *window;
 
 void draw_border_col(int pos, sf::Color color)
 {
@@ -11,7 +11,7 @@ void draw_border_col(int pos, sf::Color color)
         sf::Vertex(sf::Vector2f(pos, 0), color),
         sf::Vertex(sf::Vector2f(pos, WINDOW_HEIGHT), color)};
 
-    window.draw(line, 2, sf::Lines);
+    window->draw(line, 2, sf::Lines);
 }
 
 void draw_border_row(int pos, sf::Color color)
@@ -20,7 +20,7 @@ void draw_border_row(int pos, sf::Color color)
         sf::Vertex(sf::Vector2f(0, pos), color),
         sf::Vertex(sf::Vector2f(GRID_SIZE * GRID_X, pos), color)};
 
-    window.draw(line, 2, sf::Lines);
+    window->draw(line, 2, sf::Lines);
 }
 
 void draw_border_col(int pos) { draw_border_col(pos, sf::Color::Yellow); }

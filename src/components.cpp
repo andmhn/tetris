@@ -3,7 +3,7 @@
 #include "components.h"
 #include "globals.h"
 
-extern sf::RenderWindow window;
+extern sf::RenderWindow *window;
 
 // TODO: check out of bound
 
@@ -14,13 +14,13 @@ sf::Vector2f Grid::at(int x, int y)
 
 void Grid::draw(sf::RectangleShape box)
 {
-    window.draw(box);
+    window->draw(box);
 }
 
 void Grid::draw(sf::RectangleShape box, int grid_x, int grid_y)
 {
     box.setPosition(Grid::at(grid_x, grid_y));
-    window.draw(box);
+    window->draw(box);
 }
 
 // -------  class Score------------------
@@ -64,5 +64,5 @@ void Score::draw()
 
     text.setString(os.str());
 
-    window.draw(text);
+    window->draw(text);
 }
