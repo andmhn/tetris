@@ -1,4 +1,4 @@
-#include "doctest.h"
+#include "./doctest.h"
 #include <vector>
 
 int factorial(int number) { return number <= 1 ? number : factorial(number - 1) * number; }

@@ -7,21 +7,21 @@
 # build/     will be created to hold intermediate .o files
 
 # compiler flags and source directories can be changed here
-CXX		  := g++
+CXX      := g++
 CXXFLAGS := -Wall -Wextra -std=c++17 -ggdb -pedantic -O0
 
 TARGET_MAIN ?= tetris
 TARGET_TEST ?= tester
 
 BUILD_DIR ?= ./build
-BIN_DIR ?= ./bin
-SRC_DIRS ?= ./src
+BIN_DIR   ?= ./bin
+SRC_DIRS  ?= ./src
 TEST_DIRS ?= ./test
-MAIN_DIR ?= ./drivers
+MAIN_DIR  ?= ./drivers
 INC_FLAGS ?= -I ./include
-MKDIR_P ?= mkdir -p
+MKDIR_P   ?= mkdir -p
 
-LDFLAGS += -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system
+LDFLAGS   += -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-network -lsfml-system
 
 MAIN_SRCS := $(shell find $(SRC_DIRS) $(MAIN_DIR)/main.cpp -name "*.cpp")
 TEST_SRCS := $(shell find $(SRC_DIRS) $(TEST_DIRS) $(MAIN_DIR)/test.cpp -name "*.cpp")
