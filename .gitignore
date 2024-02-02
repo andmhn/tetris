@@ -1,8 +1,7 @@
 bin/
 build/
 .gdb_history
-scratch.txt
 *.autosave
 *.zip
 compile_commands.json
-layout.*
+plan/

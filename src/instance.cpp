@@ -13,7 +13,7 @@ void draw_border_col(int pos);
 void draw_border_row(int pos);
 void draw_grid_debug();
 
-void key_handler(sf::Keyboard::Key key, sf::RectangleShape &box);
+void key_handler(sf::Keyboard::Key key, Block &box);
 
 int instance()
 {
@@ -21,9 +21,7 @@ int instance()
                                   sf::Style::Close);
     window->setFramerateLimit(60);
 
-    auto box = sf::RectangleShape({GRID_SIZE, GRID_SIZE});
-    box.setFillColor(sf::Color::Cyan);
-    box.setPosition(Grid::at(4, 19));
+    auto box = Block({4, 19}, sf::Color::Cyan);
 
     while (window->isOpen())
     {
@@ -40,7 +38,7 @@ int instance()
         }
         window->clear();
 
-        Grid::draw(box);
+        box.draw();
 
         draw_border_col(SEPERATOR_POS);
         draw_grid_debug();

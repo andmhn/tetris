@@ -5,22 +5,24 @@
 
 extern sf::RenderWindow *window;
 
-// TODO: check out of bound
+// ------- namespace Grid ---------------
 
 sf::Vector2f Grid::at(int x, int y)
 {
     return {float(x * GRID_SIZE), float(y * GRID_SIZE)};
 }
 
-void Grid::draw(sf::RectangleShape box)
+bool Grid::is_valid_pos(sf::Vector2i pos)
 {
-    window->draw(box);
-}
+    if (pos.x < 0 ||
+        pos.y < 0 ||
+        pos.x > GRID_X - 1 ||
+        pos.y > GRID_Y - 1)
+    {
+        return false;
+    }
 
-void Grid::draw(sf::RectangleShape box, int grid_x, int grid_y)
-{
-    box.setPosition(Grid::at(grid_x, grid_y));
-    window->draw(box);
+    return true;
 }
 
 // -------  class Score------------------
@@ -65,4 +67,33 @@ void Score::draw()
     text.setString(os.str());
 
     window->draw(text);
+}
+
+//---------- class Block ----------
+
+Block::Block(sf::Vector2i grid_pos, sf::Color color)
+    : box({GRID_SIZE, GRID_SIZE}),
+      grid_pos(grid_pos)
+{
+    box.setFillColor(color);
+    set_pos(grid_pos);
+}
+
+sf::Vector2i Block::get_pos()
+{
+    return grid_pos;
+}
+
+void Block::set_pos(sf::Vector2i pos)
+{
+    if (!Grid::is_valid_pos(pos))
+        return;
+
+    grid_pos = pos;
+    box.setPosition(Grid::at(grid_pos.x, grid_pos.y));
+}
+
+void Block::draw()
+{
+    window->draw(box);
 }

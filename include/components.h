@@ -11,11 +11,8 @@ namespace Grid
 // return the cocoordinate of grid position
 sf::Vector2f at(int grid_x, int grid_y);
 
-// Draw at given grid coordinate
-void draw(sf::RectangleShape, int grid_x, int grid_y);
-
-void draw(sf::RectangleShape box);
-
+// check if the position is inside grid
+bool is_valid_pos(sf::Vector2i);
 }; // namespace Grid
 
 class Score
@@ -34,5 +31,24 @@ class Score
     void reset_score();
 
     // draw the score at bottom right
+    void draw();
+};
+
+class Block
+{
+    sf::RectangleShape box;
+    sf::Vector2i grid_pos;
+
+public:
+    // create a box in grid position
+    Block(sf::Vector2i grid_pos, sf::Color color);
+
+    // return grid position
+    sf::Vector2i get_pos();
+
+    // set grid position
+    void set_pos(sf::Vector2i grid_pos);
+
+    // draw to window
     void draw();
 };
