@@ -36,19 +36,28 @@ class Score
 
 class Block
 {
-    sf::RectangleShape box;
+    sf::RectangleShape box = sf::RectangleShape({GRID_SIZE, GRID_SIZE});
     sf::Vector2i grid_pos;
 
 public:
+    // set position to {0, 0} and color to White
+    Block();
+
     // create a box in grid position
     Block(sf::Vector2i grid_pos, sf::Color color);
 
     // return grid position
     sf::Vector2i get_pos();
 
-    // set grid position
-    void set_pos(sf::Vector2i grid_pos);
+    // set grid position and
+    // returns -1 on out of bound
+    //          0 on successful move
+    int set_pos(sf::Vector2i grid_pos);
+
+    void set_color(sf::Color color);
 
     // draw to window
     void draw();
 };
+
+enum Direction {Left, Right, Down};

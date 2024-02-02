@@ -3,6 +3,7 @@
 
 #include "components.h"
 #include "globals.h"
+#include "tetromino.h"
 
 sf::RenderWindow *window;
 Score score = Score();
@@ -21,7 +22,7 @@ int instance()
                                   sf::Style::Close);
     window->setFramerateLimit(60);
 
-    auto box = Block({4, 19}, sf::Color::Cyan);
+    auto shape_I = Tetromino();
 
     while (window->isOpen())
     {
@@ -33,15 +34,15 @@ int instance()
 
             if (evnt.type == sf::Event::KeyPressed)
             {
-                key_handler(evnt.key.code, box);
+                // key_handler(evnt.key.code, box);
             }
         }
         window->clear();
 
-        box.draw();
-
         draw_border_col(SEPERATOR_POS);
         draw_grid_debug();
+
+        shape_I.draw();
 
         score.draw();
 

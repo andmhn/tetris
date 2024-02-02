@@ -71,9 +71,15 @@ void Score::draw()
 
 //---------- class Block ----------
 
+Block::Block()
+    : grid_pos({0, 0})
+{
+    box.setFillColor(sf::Color::White);
+    set_pos(grid_pos);
+}
+
 Block::Block(sf::Vector2i grid_pos, sf::Color color)
-    : box({GRID_SIZE, GRID_SIZE}),
-      grid_pos(grid_pos)
+    : grid_pos(grid_pos)
 {
     box.setFillColor(color);
     set_pos(grid_pos);
@@ -84,13 +90,19 @@ sf::Vector2i Block::get_pos()
     return grid_pos;
 }
 
-void Block::set_pos(sf::Vector2i pos)
+int Block::set_pos(sf::Vector2i pos)
 {
     if (!Grid::is_valid_pos(pos))
-        return;
+        return -1;
 
     grid_pos = pos;
     box.setPosition(Grid::at(grid_pos.x, grid_pos.y));
+    return 0;
+}
+
+void Block::set_color(sf::Color color)
+{
+    box.setFillColor(color);
 }
 
 void Block::draw()

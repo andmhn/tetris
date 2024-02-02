@@ -51,18 +51,21 @@ TEST_CASE("Testing Score functionality")
     CHECK(score.get_points() == 0);
 }
 
+sf::Vector2i pos = {8, 0};
+auto block = Block(pos, sf::Color::Black);
+
 TEST_CASE("Testing Block class")
 {
-    sf::Vector2i pos = {8, 0};
-    auto block = Block(pos, sf::Color::Black);
 
     CHECK(vec2_cmp(block.get_pos(), {8, 0}));
 
     pos.x++;
     block.set_pos(pos);
     CHECK(vec2_cmp(block.get_pos(), {9, 0}));
+}
 
-    // testing out of bound
+TEST_CASE("testing Block out of bound")
+{
     pos.x++;
     block.set_pos(pos);
     CHECK(!vec2_cmp(block.get_pos(), {10, 0}));
@@ -72,8 +75,10 @@ TEST_CASE("Testing Block class")
 
     block.set_pos({10, 0});
     CHECK(!vec2_cmp(block.get_pos(), {0, -1}));
+}
 
-    //old position remains unchanged with out of bounary value
+TEST_CASE("old Block position remains unchanged with out of bounary value")
+{
     block.set_pos({0, 0});
 
     block.set_pos({0, 20});
