@@ -17,7 +17,10 @@ unsigned int Block_color[] = {
 Tetromino::Tetromino()
 {
     shape = (Shape)random_no(0, 6);
-    parse_block_str(get_block_str());
+    shape_str = get_block_str(shape);
+
+    parse_block_str(shape_str);
+
     set_color(sf::Color(Block_color[shape]));
 }
 
@@ -38,9 +41,9 @@ void Tetromino::parse_block_str(std::string str)
     int block_i = 0;
     int str_i = 0;
 
-    for (int col = 0; col < 4; col++)
+    for (int col = curr_pos.y; col < curr_pos.y + 4; col++)
     {
-        for (int row = 3; row < 7; row++)
+        for (int row = curr_pos.x; row < curr_pos.x + 4; row++)
         {
             if (str[str_i] == '*')
             {
@@ -52,7 +55,7 @@ void Tetromino::parse_block_str(std::string str)
     }
 }
 
-std::string Tetromino::get_block_str()
+std::string Tetromino::get_block_str(Shape shape)
 {
     switch (shape)
     {
@@ -95,22 +98,24 @@ std::string Tetromino::get_block_str()
     return "";
 }
 
-int Tetromino::inc_position(sf::Vector2i new_pos)
+int Tetromino::inc_position(sf::Vector2i increase)
 {
-    for (int i = 0; i < 4; i++)
+    for (auto &b : block)
     {
-        if (!Grid::is_valid_pos(block[i].get_pos() + new_pos))
+        if (!Grid::is_valid_pos(b.get_pos() + increase))
             return -1;
     }
-    for (int i = 0; i < 4; i++)
+    for (auto &b : block)
     {
-        block[i].set_pos(block[i].get_pos() + new_pos);
+        b.set_pos(b.get_pos() + increase);
     }
+    curr_pos += increase;
     return 0;
 }
 
 int Tetromino::move(Direction dir)
 {
+    std::cout << curr_pos.x << "\t" << curr_pos.y << "\n";
     switch (dir)
     {
     case Direction::Left:
@@ -126,4 +131,22 @@ int Tetromino::move(Direction dir)
         break;
     }
     return -1;
+}
+
+void Tetromino::rotate(Rotation r)
+{
+    // TODO: only allow valid rotation
+    //       do not rotate cube
+    switch (r)
+    {
+    case Rotation::CLOCKWISE:
+        shape_str = left_rotate(shape_str, 4);
+        parse_block_str(shape_str);
+        break;
+
+    case Rotation::ANTI_CLOCKWISE:
+        shape_str = right_rotate(shape_str, 4);
+        parse_block_str(shape_str);
+        break;
+    }
 }

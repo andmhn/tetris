@@ -38,6 +38,17 @@ void key_handler(sf::Keyboard::Key key, Tetromino &block)
         score.reset_score();
         break;
     }
+    // TODO: use key modifier
+    case sf::Keyboard::Key::Q:
+    {
+        block.rotate(Rotation::ANTI_CLOCKWISE);
+        break;
+    }
+    case sf::Keyboard::Key::W:
+    {
+        block.rotate(Rotation::CLOCKWISE);
+        break;
+    }
 
     default:
         break;

@@ -3,6 +3,9 @@
 #include "components.h"
 
 enum Shape {I, J, L, Q, S, T, Z};
+enum Rotation {CLOCKWISE, ANTI_CLOCKWISE};
+
+#define STARTING_X 3
 
 class Tetromino
 {
@@ -10,8 +13,15 @@ private:
     Shape shape;
     Block block[4];
 
+    // store string representation of block
+    std::string shape_str;
+
+    // tracks the position of block str
+    sf::Vector2i curr_pos = {STARTING_X, 0};
+
+
     void set_color(sf::Color color);
-    std::string get_block_str();
+    static std::string get_block_str(Shape);
     void parse_block_str(std::string);
 
     // increment from current position
@@ -21,5 +31,5 @@ public:
     Tetromino();
     void draw();
     int move(Direction);
-    //TODO: rotation
+    void rotate(Rotation);
 };
