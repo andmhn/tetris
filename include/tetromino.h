@@ -9,15 +9,17 @@ class Tetromino
 private:
     Shape shape;
     Block block[4];
-    Block block_temp[4];
 
     void set_color(sf::Color color);
     std::string get_block_str();
     void parse_block_str(std::string);
 
+    // increment from current position
+    int inc_position(sf::Vector2i);
+
 public:
     Tetromino();
     void draw();
-    void move(Direction);
+    int move(Direction);
     //TODO: rotation
 };

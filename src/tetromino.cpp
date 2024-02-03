@@ -94,3 +94,36 @@ std::string Tetromino::get_block_str()
     }
     return "";
 }
+
+int Tetromino::inc_position(sf::Vector2i new_pos)
+{
+    for (int i = 0; i < 4; i++)
+    {
+        if (!Grid::is_valid_pos(block[i].get_pos() + new_pos))
+            return -1;
+    }
+    for (int i = 0; i < 4; i++)
+    {
+        block[i].set_pos(block[i].get_pos() + new_pos);
+    }
+    return 0;
+}
+
+int Tetromino::move(Direction dir)
+{
+    switch (dir)
+    {
+    case Direction::Left:
+        return inc_position({-1, 0});
+        break;
+
+    case Direction::Right:
+        return inc_position({1, 0});
+        break;
+
+    case Direction::Down:
+        return inc_position({0, 1});
+        break;
+    }
+    return -1;
+}

@@ -14,7 +14,7 @@ void draw_border_col(int pos);
 void draw_border_row(int pos);
 void draw_grid_debug();
 
-void key_handler(sf::Keyboard::Key key, Block &box);
+void key_handler(sf::Keyboard::Key key, Tetromino &block);
 
 int instance()
 {
@@ -22,7 +22,7 @@ int instance()
                                   sf::Style::Close);
     window->setFramerateLimit(60);
 
-    auto shape_I = Tetromino();
+    auto shape = Tetromino();
 
     while (window->isOpen())
     {
@@ -34,7 +34,7 @@ int instance()
 
             if (evnt.type == sf::Event::KeyPressed)
             {
-                // key_handler(evnt.key.code, box);
+                key_handler(evnt.key.code, shape);
             }
         }
         window->clear();
@@ -42,7 +42,7 @@ int instance()
         draw_border_col(SEPERATOR_POS);
         draw_grid_debug();
 
-        shape_I.draw();
+        shape.draw();
 
         score.draw();
 
