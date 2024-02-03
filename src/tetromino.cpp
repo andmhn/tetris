@@ -115,7 +115,6 @@ int Tetromino::inc_position(sf::Vector2i increase)
 
 int Tetromino::move(Direction dir)
 {
-    std::cout << curr_pos.x << "\t" << curr_pos.y << "\n";
     switch (dir)
     {
     case Direction::Left:
@@ -135,18 +134,47 @@ int Tetromino::move(Direction dir)
 
 void Tetromino::rotate(Rotation r)
 {
-    // TODO: only allow valid rotation
-    //       do not rotate cube
+    // Do not rotate cube
+    if(shape == Shape::Q)
+        return;
+
+    std::string temp_str;
     switch (r)
     {
     case Rotation::CLOCKWISE:
-        shape_str = left_rotate(shape_str, 4);
-        parse_block_str(shape_str);
+        temp_str = right_rotate(shape_str, 4);
+
+        if(is_valid_block_pos(temp_str)){
+            shape_str = temp_str;
+            parse_block_str(shape_str);
+        }
         break;
 
     case Rotation::ANTI_CLOCKWISE:
-        shape_str = right_rotate(shape_str, 4);
-        parse_block_str(shape_str);
+        temp_str = left_rotate(shape_str, 4);
+
+        if(is_valid_block_pos(temp_str)){
+            shape_str = temp_str;
+            parse_block_str(shape_str);
+        }
         break;
     }
+}
+
+
+bool Tetromino::is_valid_block_pos(std::string str)
+{
+    int str_i = 0;
+    for (int col = curr_pos.y; col < curr_pos.y + 4; col++)
+    {
+        for (int row = curr_pos.x; row < curr_pos.x + 4; row++, str_i++)
+        {
+            if (str[str_i] == '*')
+            {
+                 if (!Grid::is_valid_pos({row, col}))
+                     return false;
+            }
+        }
+    }
+    return true;
 }

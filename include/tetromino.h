@@ -23,6 +23,7 @@ private:
     void set_color(sf::Color color);
     static std::string get_block_str(Shape);
     void parse_block_str(std::string);
+    bool is_valid_block_pos(std::string);
 
     // increment from current position
     int inc_position(sf::Vector2i);

@@ -77,7 +77,7 @@ TEST_CASE("testing Block out of bound")
     CHECK(!vec2_cmp(block.get_pos(), {0, -1}));
 }
 
-TEST_CASE("old Block position remains unchanged with out of bounary value")
+TEST_CASE("old Block position remains unchanged with 'out of bound' value")
 {
     block.set_pos({0, 0});
 
