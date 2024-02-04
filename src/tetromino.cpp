@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#include "grid_entry.h"
+
 // u32bit color values
 unsigned int Block_color[] = {
     15790335,   // bright_cyan
@@ -31,10 +33,11 @@ void Tetromino_Controller::init_shape()
 
 void Tetromino_Controller::new_shape()
 {
-    prev_tetrominoes.push_back(curr_tetromino);
     curr_pos = {STARTING_X, 0};
     for (auto &b : curr_tetromino.blocks)
-        b.index_pos();
+    {
+        Grid_Entry::entry(b);
+    }
 
     init_shape();
 }
@@ -44,11 +47,7 @@ void Tetromino_Controller::draw()
     for (auto &b : curr_tetromino.blocks)
         b.draw();
 
-    for (auto &t : prev_tetrominoes)
-        for (auto &b : t.blocks)
-        {
-            b.draw();
-        }
+    Grid_Entry::draw();
 }
 
 void Tetromino_Controller::set_color(sf::Color color)

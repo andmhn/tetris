@@ -5,8 +5,7 @@
 
 extern sf::RenderWindow *window;
 
-// it will only track all of still blocks
-bool GRID_INDEX[GRID_X][GRID_Y] = {{0}};
+extern bool GRID_INDEX[GRID_X][GRID_Y];
 
 // ------- namespace Grid ---------------
 
@@ -112,14 +111,4 @@ void Block::set_color(sf::Color color)
 void Block::draw()
 {
     window->draw(box);
-}
-
-void Block::index_pos()
-{
-    GRID_INDEX[grid_pos.x][grid_pos.y] = true;
-}
-
-void Block::unindex_pos()
-{
-    GRID_INDEX[grid_pos.x][grid_pos.y] = false;
 }

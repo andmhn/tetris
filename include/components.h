@@ -37,9 +37,10 @@ class Score
 class Block
 {
     sf::RectangleShape box = sf::RectangleShape({GRID_SIZE, GRID_SIZE});
-    sf::Vector2i grid_pos;
 
 public:
+    sf::Vector2i grid_pos;
+
     // set position to {0, 0} and color to White
     Block();
 
@@ -58,9 +59,6 @@ public:
 
     // draw to window
     void draw();
-
-    void index_pos();
-    void unindex_pos();
 };
 
 enum Direction {Left, Right, Down};

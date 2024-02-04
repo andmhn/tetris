@@ -40,11 +40,12 @@ int instance()
         window->clear();
 
         draw_border_col(SEPERATOR_POS);
-        draw_grid_debug();
 
         shape.draw();
 
         score.draw();
+
+        draw_grid_debug();
 
         window->display();
     }

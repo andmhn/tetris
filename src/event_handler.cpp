@@ -39,7 +39,7 @@ void key_handler(sf::Keyboard::Key key, Tetromino_Controller &block)
     case sf::Keyboard::Key::S:
         score.reset_score();
         break;
-    case sf::Keyboard::Key::R:
+    case sf::Keyboard::Key::Space:
         block.new_shape();
         break;
     default:

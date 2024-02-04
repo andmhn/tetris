@@ -19,8 +19,6 @@ private:
     Shape shape;
     Tetromino curr_tetromino;
 
-    std::vector<Tetromino> prev_tetrominoes;
-
     // store string representation of block
     std::string shape_str;
 
