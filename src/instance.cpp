@@ -14,7 +14,7 @@ void draw_border_col(int pos);
 void draw_border_row(int pos);
 void draw_grid_debug();
 
-void key_handler(sf::Keyboard::Key key, Tetromino &block);
+void key_handler(sf::Keyboard::Key key, Tetromino_Controller &block);
 
 int instance()
 {
@@ -22,7 +22,7 @@ int instance()
                                   sf::Style::Close);
     window->setFramerateLimit(60);
 
-    auto shape = Tetromino();
+    auto shape = Tetromino_Controller();
 
     while (window->isOpen())
     {

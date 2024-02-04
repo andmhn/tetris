@@ -9,9 +9,17 @@ enum Rotation {CLOCKWISE, ANTI_CLOCKWISE};
 
 class Tetromino
 {
+public:
+    Block blocks[4];
+};
+
+class Tetromino_Controller
+{
 private:
     Shape shape;
-    Block block[4];
+    Tetromino curr_tetromino;
+
+    std::vector<Tetromino> prev_tetrominoes;
 
     // store string representation of block
     std::string shape_str;
@@ -28,8 +36,11 @@ private:
     // increment from current position
     int inc_position(sf::Vector2i);
 
+    void init_shape();
+
 public:
-    Tetromino();
+    Tetromino_Controller();
+    void new_shape();
     void draw();
     int move(Direction);
     void rotate(Rotation);

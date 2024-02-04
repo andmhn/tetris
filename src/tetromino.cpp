@@ -14,7 +14,12 @@ unsigned int Block_color[] = {
     4026532095  // red
 };
 
-Tetromino::Tetromino()
+Tetromino_Controller::Tetromino_Controller()
+{
+    init_shape();
+}
+
+void Tetromino_Controller::init_shape()
 {
     shape = (Shape)random_no(0, 6);
     shape_str = get_block_str(shape);
@@ -24,19 +29,35 @@ Tetromino::Tetromino()
     set_color(sf::Color(Block_color[shape]));
 }
 
-void Tetromino::draw()
+void Tetromino_Controller::new_shape()
 {
-    for (auto &b : block)
-        b.draw();
+    prev_tetrominoes.push_back(curr_tetromino);
+    curr_pos = {STARTING_X, 0};
+    for (auto &b : curr_tetromino.blocks)
+        b.index_pos();
+
+    init_shape();
 }
 
-void Tetromino::set_color(sf::Color color)
+void Tetromino_Controller::draw()
 {
-    for (auto &b : block)
+    for (auto &b : curr_tetromino.blocks)
+        b.draw();
+
+    for (auto &t : prev_tetrominoes)
+        for (auto &b : t.blocks)
+        {
+            b.draw();
+        }
+}
+
+void Tetromino_Controller::set_color(sf::Color color)
+{
+    for (auto &b : curr_tetromino.blocks)
         b.set_color(color);
 }
 
-void Tetromino::parse_block_str(std::string str)
+void Tetromino_Controller::parse_block_str(std::string str)
 {
     int block_i = 0;
     int str_i = 0;
@@ -47,7 +68,7 @@ void Tetromino::parse_block_str(std::string str)
         {
             if (str[str_i] == '*')
             {
-                block[block_i].set_pos({row, col});
+                curr_tetromino.blocks[block_i].set_pos({row, col});
                 block_i++;
             }
             str_i++;
@@ -55,7 +76,7 @@ void Tetromino::parse_block_str(std::string str)
     }
 }
 
-std::string Tetromino::get_block_str(Shape shape)
+std::string Tetromino_Controller::get_block_str(Shape shape)
 {
     switch (shape)
     {
@@ -98,14 +119,14 @@ std::string Tetromino::get_block_str(Shape shape)
     return "";
 }
 
-int Tetromino::inc_position(sf::Vector2i increase)
+int Tetromino_Controller::inc_position(sf::Vector2i increase)
 {
-    for (auto &b : block)
+    for (auto &b : curr_tetromino.blocks)
     {
         if (!Grid::is_valid_pos(b.get_pos() + increase))
             return -1;
     }
-    for (auto &b : block)
+    for (auto &b : curr_tetromino.blocks)
     {
         b.set_pos(b.get_pos() + increase);
     }
@@ -113,7 +134,7 @@ int Tetromino::inc_position(sf::Vector2i increase)
     return 0;
 }
 
-int Tetromino::move(Direction dir)
+int Tetromino_Controller::move(Direction dir)
 {
     switch (dir)
     {
@@ -132,7 +153,7 @@ int Tetromino::move(Direction dir)
     return -1;
 }
 
-void Tetromino::rotate(Rotation r)
+void Tetromino_Controller::rotate(Rotation r)
 {
     // Do not rotate cube
     if (shape == Shape::Q)
@@ -163,7 +184,7 @@ void Tetromino::rotate(Rotation r)
     }
 }
 
-bool Tetromino::is_valid_block_pos(std::string str)
+bool Tetromino_Controller::is_valid_block_pos(std::string str)
 {
     int str_i = 0;
     for (int col = curr_pos.y; col < curr_pos.y + 4; col++)

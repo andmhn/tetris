@@ -58,6 +58,9 @@ public:
 
     // draw to window
     void draw();
+
+    void index_pos();
+    void unindex_pos();
 };
 
 enum Direction {Left, Right, Down};

@@ -5,7 +5,7 @@
 
 extern Score score;
 
-void key_handler(sf::Keyboard::Key key, Tetromino &block)
+void key_handler(sf::Keyboard::Key key, Tetromino_Controller &block)
 {
     // modifier keys
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::RControl) ||
@@ -38,6 +38,9 @@ void key_handler(sf::Keyboard::Key key, Tetromino &block)
         break;
     case sf::Keyboard::Key::S:
         score.reset_score();
+        break;
+    case sf::Keyboard::Key::R:
+        block.new_shape();
         break;
     default:
         break;

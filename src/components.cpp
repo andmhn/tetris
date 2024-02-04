@@ -5,6 +5,9 @@
 
 extern sf::RenderWindow *window;
 
+// it will only track all of still blocks
+bool GRID_INDEX[GRID_X][GRID_Y] = {{0}};
+
 // ------- namespace Grid ---------------
 
 sf::Vector2f Grid::at(int x, int y)
@@ -17,7 +20,8 @@ bool Grid::is_valid_pos(sf::Vector2i pos)
     if (pos.x < 0 ||
         pos.y < 0 ||
         pos.x > GRID_X - 1 ||
-        pos.y > GRID_Y - 1)
+        pos.y > GRID_Y - 1 ||
+        GRID_INDEX[pos.x][pos.y] == true)
     {
         return false;
     }
@@ -108,4 +112,14 @@ void Block::set_color(sf::Color color)
 void Block::draw()
 {
     window->draw(box);
+}
+
+void Block::index_pos()
+{
+    GRID_INDEX[grid_pos.x][grid_pos.y] = true;
+}
+
+void Block::unindex_pos()
+{
+    GRID_INDEX[grid_pos.x][grid_pos.y] = false;
 }
