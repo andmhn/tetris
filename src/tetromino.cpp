@@ -135,7 +135,7 @@ int Tetromino::move(Direction dir)
 void Tetromino::rotate(Rotation r)
 {
     // Do not rotate cube
-    if(shape == Shape::Q)
+    if (shape == Shape::Q)
         return;
 
     std::string temp_str;
@@ -144,7 +144,8 @@ void Tetromino::rotate(Rotation r)
     case Rotation::CLOCKWISE:
         temp_str = right_rotate(shape_str, 4);
 
-        if(is_valid_block_pos(temp_str)){
+        if (is_valid_block_pos(temp_str))
+        {
             shape_str = temp_str;
             parse_block_str(shape_str);
         }
@@ -153,7 +154,8 @@ void Tetromino::rotate(Rotation r)
     case Rotation::ANTI_CLOCKWISE:
         temp_str = left_rotate(shape_str, 4);
 
-        if(is_valid_block_pos(temp_str)){
+        if (is_valid_block_pos(temp_str))
+        {
             shape_str = temp_str;
             parse_block_str(shape_str);
         }
@@ -161,20 +163,13 @@ void Tetromino::rotate(Rotation r)
     }
 }
 
-
 bool Tetromino::is_valid_block_pos(std::string str)
 {
     int str_i = 0;
     for (int col = curr_pos.y; col < curr_pos.y + 4; col++)
-    {
         for (int row = curr_pos.x; row < curr_pos.x + 4; row++, str_i++)
-        {
-            if (str[str_i] == '*')
-            {
-                 if (!Grid::is_valid_pos({row, col}))
-                     return false;
-            }
-        }
-    }
+            if (str[str_i] == '*' &&
+                !Grid::is_valid_pos({row, col}))
+                return false;
     return true;
 }
