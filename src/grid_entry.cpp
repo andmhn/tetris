@@ -1,5 +1,7 @@
 #include "grid_entry.h"
 
+extern Score score;
+
 namespace BLOCK_INDEX_
 {
 // it will only track all of still blocks
@@ -64,7 +66,7 @@ void debug()
 void Grid_Entry::entry(Block b)
 {
     BLOCK_INDEX_::update_entry(b);
-    scan_row();
+
     //    debug();
 }
 
@@ -117,6 +119,10 @@ void Grid_Entry::scan_row()
     }
     for (auto &col : clean_list)
         shift_rows(col);
+
+    // update score
+    if (!clean_list.empty())
+        score.add_points(clean_list.size());
 }
 
 void Grid_Entry::draw()

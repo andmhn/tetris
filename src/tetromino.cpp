@@ -40,6 +40,8 @@ void Tetromino_Controller::new_shape()
     {
         Grid_Entry::entry(b);
     }
+    // scan completed rows now
+    Grid_Entry::scan_row();
 
     init_shape();
 }

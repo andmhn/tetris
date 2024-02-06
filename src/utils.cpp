@@ -65,9 +65,14 @@ void RandomStream::init()
 int RandomStream::rand()
 {
     if (bag.size() == 0)
+    {
         init();
-    while (bag.back() == last_rand)
-        init();
+        while (bag.back() == last_rand)
+        {
+            bag.clear();
+            init();
+        }
+    }
 
     last_rand = bag.back();
     bag.pop_back();

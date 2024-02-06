@@ -25,7 +25,7 @@ class Score
     Score();
 
     int get_points();
-    void add_points(int amount);
+    void add_points(int rows_cleared);
 
     /// reset score to 0
     void reset_score();

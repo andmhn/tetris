@@ -51,9 +51,28 @@ int Score::get_points()
     return points;
 }
 
-void Score::add_points(int amount)
+void Score::add_points(int rows_cleared)
 {
-    points += amount;
+    // Scoring System:
+    // add points per rows cleared
+    //(50, 150, 450, or 900)
+    switch (rows_cleared)
+    {
+    case 1:
+        points += 50;
+        break;
+    case 2:
+        points += 150;
+        break;
+    case 3:
+        points += 450;
+        break;
+    case 4:
+        points += 900;
+        break;
+    default:
+        return;
+    }
 }
 
 void Score::reset_score()

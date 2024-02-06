@@ -33,12 +33,6 @@ void key_handler(sf::Keyboard::Key key, Tetromino_Controller &block)
         block.move(Direction::Right);
         break;
 
-    case sf::Keyboard::Key::A:
-        score.add_points(1);
-        break;
-    case sf::Keyboard::Key::S:
-        score.reset_score();
-        break;
     case sf::Keyboard::Key::Space:
         block.new_shape();
         break;
