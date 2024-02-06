@@ -5,7 +5,7 @@
 
 extern sf::RenderWindow *window;
 
-extern bool GRID_INDEX[GRID_X][GRID_Y];
+#include "grid_entry.h"
 
 // ------- namespace Grid ---------------
 
@@ -20,7 +20,7 @@ bool Grid::is_valid_pos(sf::Vector2i pos)
         pos.y < 0 ||
         pos.x > GRID_X - 1 ||
         pos.y > GRID_Y - 1 ||
-        GRID_INDEX[pos.x][pos.y] == true)
+        Grid_Entry::has_entry(pos))
     {
         return false;
     }

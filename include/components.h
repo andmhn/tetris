@@ -36,9 +36,9 @@ class Score
 
 class Block
 {
+public:
     sf::RectangleShape box = sf::RectangleShape({GRID_SIZE, GRID_SIZE});
 
-public:
     sf::Vector2i grid_pos;
 
     // set position to {0, 0} and color to White

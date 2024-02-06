@@ -1,59 +1,92 @@
 #include "grid_entry.h"
 
+namespace BLOCK_INDEX_
+{
 // it will only track all of still blocks
-bool GRID_INDEX[GRID_X][GRID_Y] = {{0}};
+bool GRID_[GRID_X][GRID_Y] = {{0}};
 
 // stores blocks
-Block BLOCK_INDEX_[GRID_X][GRID_Y];
+Block INDEX_[GRID_X][GRID_Y];
+
+bool has_entry(sf::Vector2i pos)
+{
+    return GRID_[pos.x][pos.y];
+}
+
+void delete_entry(sf::Vector2i pos)
+{
+    GRID_[pos.x][pos.y] = false;
+}
+
+void update_entry(Block b)
+{
+    GRID_[b.grid_pos.x][b.grid_pos.y] = true;
+
+    INDEX_[b.grid_pos.x][b.grid_pos.y] = b;
+}
+
+Block get_entry(sf::Vector2i pos)
+{
+    return INDEX_[pos.x][pos.y];
+}
+
+void move_pos(sf::Vector2i old_pos, sf::Vector2i new_pos)
+{
+    GRID_[old_pos.x][old_pos.y] = false;
+    GRID_[new_pos.x][new_pos.y] = true;
+
+    INDEX_[old_pos.x][old_pos.y].box.setPosition(Grid::at(new_pos.x, new_pos.y));
+
+    INDEX_[new_pos.x][new_pos.y] = INDEX_[old_pos.x][old_pos.y];
+}
+} // namespace BLOCK_INDEX_
 
 #include <iostream>
-void print()
+void debug()
 {
-    for (size_t col = 0; col < GRID_Y; col++)
+    for (int col = 0; col < GRID_Y; col++)
     {
-        for (size_t row = 0; row < GRID_X; row++)
-            std::cout << bool(GRID_INDEX[row][col]) << " ";
+        std::cout << col << "\t";
+        for (int row = 0; row < GRID_X; row++)
+        {
+            if (BLOCK_INDEX_::has_entry({row, col}))
+            {
+                auto e = BLOCK_INDEX_::get_entry({row, col}).box.getPosition();
+                std::cout << e.x << "," << e.y;
+            }
+            std::cout << "\t";
+        }
         std::cout << "\n";
     }
-    std::cout << "\n\n";
 }
 
 void Grid_Entry::entry(Block b)
 {
-    BLOCK_INDEX_[b.grid_pos.x][b.grid_pos.y] = b;
-    GRID_INDEX[b.grid_pos.x][b.grid_pos.y] = true;
-
+    BLOCK_INDEX_::update_entry(b);
     scan_row();
+    //    debug();
 }
 
 void Grid_Entry::delete_entry(sf::Vector2i pos)
 {
-    GRID_INDEX[pos.x][pos.y] = false;
+    BLOCK_INDEX_::delete_entry(pos);
 }
 
 void shift_down(sf::Vector2i pos)
 {
-    sf::Vector2i inc = {0, 1};
-
-    GRID_INDEX[pos.x][pos.y] = false;
-    GRID_INDEX[pos.x][pos.y + 1] = true;
-    BLOCK_INDEX_[pos.x][pos.y].set_pos(pos + inc);
-    //    BLOCK_INDEX_[new_pos.x][new_pos.y] = BLOCK_INDEX_[prev_pos.x][prev_pos.y];
+    BLOCK_INDEX_::move_pos(pos, {pos.x, pos.y + 1});
 }
 
-void shift_rows(std::vector<int> clean_list)
+void shift_rows(int mark)
 {
-    for (auto mark : clean_list)
+    // down to top shifting
+    for (int c = mark - 1; c >= 0; c--)
     {
-        // down to top shifting
-        for (int c = mark - 1; c > 0; c--)
+        for (int row = 0; row < GRID_X; row++)
         {
-            for (int row = 0; row < GRID_X; row++)
+            if (BLOCK_INDEX_::has_entry({row, c}))
             {
-                if (GRID_INDEX[row][c])
-                {
-                    shift_down({row, c});
-                }
+                shift_down({row, c});
             }
         }
     }
@@ -67,7 +100,7 @@ void Grid_Entry::scan_row()
     {
         for (int row = 0; row < GRID_X; row++)
         {
-            if (GRID_INDEX[row][col] == false)
+            if (BLOCK_INDEX_::has_entry({row, col}) == false)
                 goto next;
         }
         clean_list.push_back(col);
@@ -81,17 +114,25 @@ void Grid_Entry::scan_row()
         for (int row = 0; row < GRID_Y; row++)
             delete_entry({row, col});
     }
-    shift_rows(clean_list);
+    for (auto &col : clean_list)
+        shift_rows(col);
 }
 
 void Grid_Entry::draw()
 {
-    for (size_t col = 0; col < GRID_Y; col++)
+    for (int col = 0; col < GRID_Y; col++)
     {
-        for (size_t row = 0; row < GRID_X; row++)
+        for (int row = 0; row < GRID_X; row++)
         {
-            if (GRID_INDEX[row][col] == true)
-                BLOCK_INDEX_[row][col].draw();
+            if (BLOCK_INDEX_::has_entry({row, col}))
+            {
+                BLOCK_INDEX_::get_entry({row, col}).draw();
+            }
         }
     }
+}
+
+bool Grid_Entry::has_entry(sf::Vector2i pos)
+{
+    return BLOCK_INDEX_::has_entry(pos);
 }

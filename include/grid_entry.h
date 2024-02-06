@@ -15,4 +15,6 @@ namespace Grid_Entry
 
     // draw indexed blocks
     void draw();
+
+    bool has_entry(sf::Vector2i pos);
 };
