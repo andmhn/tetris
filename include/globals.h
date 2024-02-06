@@ -9,3 +9,6 @@ constexpr int WINDOW_WIDTH = GRID_SIZE * (GRID_X + SPLIT_COLS);
 constexpr int WINDOW_HEIGHT = GRID_SIZE * GRID_Y;
 
 constexpr int SEPERATOR_POS = GRID_SIZE * GRID_X;
+
+constexpr int PREVIEW_X = 11;
+constexpr int PREVIEW_Y = 3;

@@ -33,9 +33,6 @@ void key_handler(sf::Keyboard::Key key, Tetromino_Controller &block)
         block.move(Direction::Right);
         break;
 
-    case sf::Keyboard::Key::Space:
-        block.new_shape();
-        break;
     default:
         break;
     }

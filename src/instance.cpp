@@ -24,6 +24,8 @@ int instance()
 
     auto shape = Tetromino_Controller();
 
+    auto preview = Tetromino_Preview();
+
     while (window->isOpen())
     {
         sf::Event evnt;
@@ -35,6 +37,9 @@ int instance()
             if (evnt.type == sf::Event::KeyPressed)
             {
                 key_handler(evnt.key.code, shape);
+
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+                    preview.submit_tetromino(shape);
             }
         }
         window->clear();
@@ -44,6 +49,8 @@ int instance()
         shape.draw();
 
         score.draw();
+
+        preview.draw();
 
         draw_grid_debug();
 

@@ -27,19 +27,44 @@ private:
 
 
     void set_color(sf::Color color);
-    static std::string get_block_str(Shape);
+
+    // wrapper for static function
     void parse_block_str(std::string);
+
     bool is_valid_block_pos(std::string);
 
     // increment from current position
     int inc_position(sf::Vector2i);
 
-    void init_shape();
+    void init_shape(Shape);
 
 public:
     Tetromino_Controller();
-    void new_shape();
     void draw();
     int move(Direction);
     void rotate(Rotation);
+
+    void new_shape(Shape);
+
+    static std::string get_block_str(Shape);
+
+    // parse tetromino string and set position
+    static void parse_block_str(std::string str, Tetromino &, sf::Vector2i & pos);
+
 };
+
+
+// sidebar preview of next tetromino
+class Tetromino_Preview
+{
+    Tetromino preview;
+    Shape shape;
+
+    void create();
+
+public:
+    Tetromino_Preview();
+    void draw();
+    void submit_tetromino(Tetromino_Controller &);
+};
+

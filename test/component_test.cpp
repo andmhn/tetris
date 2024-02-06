@@ -41,39 +41,38 @@ TEST_CASE("Testing Score functionality")
     auto score = Score();
     CHECK(score.get_points() == 0);
 
-	//(50, 150, 450, or 900
-	
-	//add 1
+    //(50, 150, 450, or 900
+
+    // add 1
     score.add_points(1);
     CHECK(score.get_points() == 50);
 
     score.add_points(1);
     CHECK(score.get_points() == 100);
 
-	score.add_points(1);
+    score.add_points(1);
     CHECK(score.get_points() == 150);
 
-	// add 2
-	score.add_points(2);
+    // add 2
+    score.add_points(2);
     CHECK(score.get_points() == 300);
 
-	score.add_points(2);
+    score.add_points(2);
     CHECK(score.get_points() == 450);
 
-	score.add_points(2);
+    score.add_points(2);
     CHECK(score.get_points() == 600);
-	
-	// add 3
-	score.add_points(3);
+
+    // add 3
+    score.add_points(3);
     CHECK(score.get_points() == 1050);
 
-	score.add_points(3);
+    score.add_points(3);
     CHECK(score.get_points() == 1500);
 
-	// add 4
-	score.add_points(4);
+    // add 4
+    score.add_points(4);
     CHECK(score.get_points() == 2400);
-
 
     score.reset_score();
     CHECK(score.get_points() == 0);
