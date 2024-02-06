@@ -35,7 +35,8 @@ void move_pos(sf::Vector2i old_pos, sf::Vector2i new_pos)
     GRID_[old_pos.x][old_pos.y] = false;
     GRID_[new_pos.x][new_pos.y] = true;
 
-    INDEX_[old_pos.x][old_pos.y].box.setPosition(Grid::at(new_pos.x, new_pos.y));
+    // TODO: fix bug
+    INDEX_[old_pos.x][old_pos.y].set_pos_forced(new_pos);
 
     INDEX_[new_pos.x][new_pos.y] = INDEX_[old_pos.x][old_pos.y];
 }
@@ -51,7 +52,7 @@ void debug()
         {
             if (BLOCK_INDEX_::has_entry({row, col}))
             {
-                auto e = BLOCK_INDEX_::get_entry({row, col}).box.getPosition();
+                auto e = BLOCK_INDEX_::get_entry({row, col}).grid_pos;
                 std::cout << e.x << "," << e.y;
             }
             std::cout << "\t";

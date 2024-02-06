@@ -1,4 +1,5 @@
 #include "utils.h"
+#include <algorithm>
 #include <iostream>
 #include <random>
 
@@ -40,4 +41,35 @@ std::string right_rotate(std::string s, int n)
             ret_s += s[(row * n) + col];
 
     return ret_s;
+}
+
+RandomStream::RandomStream(int start, int stop)
+    : start(start), stop(stop)
+{
+    last_rand = start - 1;
+}
+
+void RandomStream::init()
+{
+    // fill the empty bag
+    for (int i = start; i <= stop; ++i)
+    {
+        bag.push_back(i);
+    }
+
+    std::random_device rd;
+    auto rng = std::default_random_engine{rd()};
+    std::shuffle(std::begin(bag), std::end(bag), rng);
+}
+
+int RandomStream::rand()
+{
+    if (bag.size() == 0)
+        init();
+    while (bag.back() == last_rand)
+        init();
+
+    last_rand = bag.back();
+    bag.pop_back();
+    return last_rand;
 }

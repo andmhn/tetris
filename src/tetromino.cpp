@@ -16,6 +16,8 @@ unsigned int Block_color[] = {
     4026532095  // red
 };
 
+RandomStream rstream(0, 6);
+
 Tetromino_Controller::Tetromino_Controller()
 {
     init_shape();
@@ -23,7 +25,7 @@ Tetromino_Controller::Tetromino_Controller()
 
 void Tetromino_Controller::init_shape()
 {
-    shape = (Shape)random_no(0, 6);
+    shape = (Shape)rstream.rand();
     shape_str = get_block_str(shape);
 
     parse_block_str(shape_str);

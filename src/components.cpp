@@ -98,9 +98,13 @@ int Block::set_pos(sf::Vector2i pos)
     if (!Grid::is_valid_pos(pos))
         return -1;
 
+    set_pos_forced(pos);
+    return 0;
+}
+void Block::set_pos_forced(sf::Vector2i pos)
+{
     grid_pos = pos;
     box.setPosition(Grid::at(grid_pos.x, grid_pos.y));
-    return 0;
 }
 
 void Block::set_color(sf::Color color)
