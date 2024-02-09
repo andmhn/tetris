@@ -17,6 +17,22 @@ void draw_grid_debug();
 
 void key_handler(sf::Keyboard::Key key, Tetromino_Controller &block);
 
+bool detect_lose(Tetromino tetromino)
+{
+    // if there are blocks in starting pos
+    for(auto &b : tetromino.blocks)
+    {
+        sf::Vector2i spawning_pos = b.grid_pos;
+        spawning_pos.x -= (PREVIEW_X - STARTING_X);
+        spawning_pos.y -= PREVIEW_Y;
+
+        if(Grid_Entry::has_entry(spawning_pos))
+             return true;
+
+    }
+    return false;
+}
+
 int instance()
 {
     auto shape = Tetromino_Controller();
@@ -51,9 +67,13 @@ int instance()
         // display the preview of next tetromino
         preview.draw();
 
+        if(detect_lose(preview.preview))
+            exit(0);
+
         // enable falling blocks
         if (static_cast<unsigned int>(clk.getElapsedTime().asMilliseconds()) > 1000)
         {
+
             if(!shape.has_block_finished())
                 shape.move(Down);
 

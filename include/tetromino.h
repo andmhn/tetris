@@ -59,12 +59,13 @@ public:
 // sidebar preview of next tetromino
 class Tetromino_Preview
 {
-    Tetromino preview;
     Shape shape;
 
     void create();
 
 public:
+    Tetromino preview;
+
     Tetromino_Preview();
     void draw();
     void submit_tetromino(Tetromino_Controller &);
