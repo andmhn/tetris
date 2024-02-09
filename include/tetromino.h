@@ -46,6 +46,8 @@ public:
 
     void new_shape(Shape);
 
+    bool has_block_finished();
+
     static std::string get_block_str(Shape);
 
     // parse tetromino string and set position

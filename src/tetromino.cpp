@@ -204,6 +204,23 @@ bool Tetromino_Controller::is_valid_block_pos(std::string str)
     return true;
 }
 
+bool Tetromino_Controller::has_block_finished()
+{
+    for(auto b : curr_tetromino.blocks)
+    {
+        auto pos = b.get_pos();
+
+        // collision with other blocks
+        if(Grid_Entry::has_entry({pos.x, pos.y + 1}))
+            return true;
+
+        // collision with ground
+        if(pos.y == GRID_Y - 1)
+            return true;
+    }
+    return false;
+}
+
 //---------------------- Tetromino_Preview ------------------------------
 
 Tetromino_Preview::Tetromino_Preview()
