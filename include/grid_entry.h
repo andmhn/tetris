@@ -17,4 +17,6 @@ namespace Grid_Entry
     void draw();
 
     bool has_entry(sf::Vector2i pos);
+
+    void reset();
 };

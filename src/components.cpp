@@ -75,7 +75,7 @@ void Score::add_points(int rows_cleared)
     }
 }
 
-void Score::reset_score()
+void Score::reset()
 {
     points = 0;
 }

@@ -28,7 +28,7 @@ class Score
     void add_points(int rows_cleared);
 
     /// reset score to 0
-    void reset_score();
+    void reset();
 
     // draw the score at bottom right
     void draw();
