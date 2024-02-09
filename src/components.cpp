@@ -30,7 +30,7 @@ bool Grid::is_valid_pos(sf::Vector2i pos)
 
 // -------  class Score------------------
 
-Score::Score() : points(0)
+Score::Score() : rows(0), prev_rows(0), points(0)
 {
     // load font
     font.loadFromFile("pixel_font.ttf");
@@ -41,9 +41,6 @@ Score::Score() : points(0)
     text.setCharacterSize(40);
     text.setStyle(sf::Text::Bold);
     text.setFillColor(sf::Color::Green);
-
-    // drawing position
-    text.setPosition(10 * GRID_SIZE + 10, WINDOW_HEIGHT - (GRID_SIZE * 4));
 }
 
 int Score::get_points()
@@ -73,6 +70,12 @@ void Score::add_points(int rows_cleared)
     default:
         return;
     }
+
+    if(prev_rows == 4 && rows_cleared == 4)
+        points += 900;
+
+    prev_rows = rows_cleared;
+    rows += rows_cleared;
 }
 
 void Score::reset()
@@ -82,13 +85,20 @@ void Score::reset()
 
 void Score::draw()
 {
+    // drawing position
+    text.setPosition(10 * GRID_SIZE + 10, (GRID_SIZE * 10));
+
     std::ostringstream os;
-    os << "score\n"
+    os << "rows\n"
+       << rows
+       << "\n\n"
+       << "score\n"
        << points;
 
     text.setString(os.str());
 
     window->draw(text);
+
 }
 
 //---------- class Block ----------

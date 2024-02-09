@@ -17,6 +17,8 @@ bool is_valid_pos(sf::Vector2i);
 
 class Score
 {
+    unsigned int rows;   // tracks cleared rows
+    unsigned int prev_rows;
     unsigned int points;
     sf::Text text;
     sf::Font font;
