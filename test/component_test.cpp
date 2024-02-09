@@ -74,7 +74,7 @@ TEST_CASE("Testing Score functionality")
     score.add_points(4);
     CHECK(score.get_points() == 2400);
 
-    score.reset_score();
+    score.reset();
     CHECK(score.get_points() == 0);
 }
 

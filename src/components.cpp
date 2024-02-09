@@ -38,9 +38,12 @@ Score::Score() : rows(0), prev_rows(0), points(0)
     // Create a text
     text = sf::Text();
     text.setFont(font);
-    text.setCharacterSize(40);
-    text.setStyle(sf::Text::Bold);
-    text.setFillColor(sf::Color::Green);
+    text.setCharacterSize(30);
+    text.setStyle(sf::Text::Regular);
+    text.setFillColor(sf::Color::Yellow);
+
+    // set position below of tetromino preview
+    text.setPosition((10 * GRID_SIZE + 10), (GRID_SIZE * 10));
 }
 
 int Score::get_points()
@@ -52,7 +55,7 @@ void Score::add_points(int rows_cleared)
 {
     // Scoring System:
     // add points per rows cleared
-    //(50, 150, 450, or 900)
+    //(50, 150, 450, or 900), 900+500 = 1400
     switch (rows_cleared)
     {
     case 1:
@@ -65,14 +68,15 @@ void Score::add_points(int rows_cleared)
         points += 450;
         break;
     case 4:
-        points += 900;
+        points += 900;  // Tetris
         break;
     default:
         return;
     }
 
+    // back-to-back Tetris
     if(prev_rows == 4 && rows_cleared == 4)
-        points += 900;
+        points += 500;
 
     prev_rows = rows_cleared;
     rows += rows_cleared;
@@ -85,9 +89,6 @@ void Score::reset()
 
 void Score::draw()
 {
-    // drawing position
-    text.setPosition(10 * GRID_SIZE + 10, (GRID_SIZE * 10));
-
     std::ostringstream os;
     os << "rows\n"
        << rows
@@ -98,7 +99,6 @@ void Score::draw()
     text.setString(os.str());
 
     window->draw(text);
-
 }
 
 //---------- class Block ----------
