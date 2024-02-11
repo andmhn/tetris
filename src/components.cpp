@@ -51,6 +51,11 @@ int Score::get_points()
     return points;
 }
 
+int Score::get_rows()
+{
+    return rows;
+}
+
 void Score::add_points(int rows_cleared)
 {
     // Scoring System:
@@ -85,6 +90,7 @@ void Score::add_points(int rows_cleared)
 void Score::reset()
 {
     points = 0;
+    rows = 0;
 }
 
 void Score::draw()

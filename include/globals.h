@@ -12,3 +12,6 @@ constexpr int SEPERATOR_POS = GRID_SIZE * GRID_X;
 
 constexpr int PREVIEW_X = 11;
 constexpr int PREVIEW_Y = 3;
+
+constexpr int ELAPSED_TIME = 500;
+constexpr int FPS = 60;
