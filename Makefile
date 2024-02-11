@@ -83,6 +83,12 @@ analyze:
 format:
 	clang-format -i $(SRCS)
 
+ctags:
+	@echo generating ctags
+	@$(CXX) -M $(LDFLAGS) $(INC_FLAGS) $(MAIN_SRCS) | sed -e 's/[\\ ]/\n/g' | \
+		sed -e '/^$$/d' -e '/\.o:[ \t]*$$/d' | \
+		ctags -L - --c-kinds=+p --fields=+iaSl --extras=+q --langmap=c:.c.h
+
 # include the dependencies generated using the
 -include $(DEPS)
 
