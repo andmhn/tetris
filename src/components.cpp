@@ -73,14 +73,14 @@ void Score::add_points(int rows_cleared)
         points += 450;
         break;
     case 4:
-        points += 900;  // Tetris
+        points += 900; // Tetris
         break;
     default:
         return;
     }
 
     // back-to-back Tetris
-    if(prev_rows == 4 && rows_cleared == 4)
+    if (prev_rows == 4 && rows_cleared == 4)
         points += 500;
 
     prev_rows = rows_cleared;

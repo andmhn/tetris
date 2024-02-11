@@ -146,7 +146,7 @@ bool Grid_Entry::has_entry(sf::Vector2i pos)
 
 void Grid_Entry::reset()
 {
-    for(auto &row : BLOCK_INDEX_::GRID_)
-        for(auto &block : row)
+    for (auto &row : BLOCK_INDEX_::GRID_)
+        for (auto &block : row)
             block = false;
 }
