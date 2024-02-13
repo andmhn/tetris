@@ -61,10 +61,10 @@ class SceneManager
             "GAME CONTROL:\n\n\n"
             "Left \tmove block left\n\n"
             "Right\tmove block right\n\n"
-            "Down \tsoftly land block\n\n\n"
+            "Down \tland block down\n\n\n"
 
-            "Ctrl + Right\n\t\tRotate clockwise\n\n"
-            "Ctrl + Left\n\t\tRotate anti clockwise\n"
+            "Ctrl + Right\n\t\t   Rotate clockwise\n\n"
+            "Ctrl + Left\n\t\t   Rotate anti clockwise\n"
             "\n\n\n\n\n\n(Escape) to exit help");
         window->draw(text);
     }
@@ -114,7 +114,7 @@ class SceneManager
         window->draw(text);
     }
 
-    void play(Tetromino_Controller &controller, Tetromino_Preview &preview)
+    static void play(Tetromino_Controller &controller, Tetromino_Preview &preview)
     {
         draw_border_col(SEPERATOR_POS);
 
@@ -206,7 +206,7 @@ int instance()
             manager.display_welcome();
             break;
         case PLAYING:
-            manager.play(controller, preview);
+            SceneManager::play(controller, preview);
             break;
         case GAME_OVER:
             manager.display_game_over();

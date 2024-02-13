@@ -22,7 +22,10 @@ void key_handler(sf::Keyboard::Key key, Tetromino_Controller &block)
     switch (key)
     {
     case sf::Keyboard::Key::Down:
-        block.move(Direction::Down);
+        /// land tetromino down
+        while(!block.has_block_finished())
+            block.move(Direction::Down);
+        block.draw();
         break;
 
     case sf::Keyboard::Key::Left:
