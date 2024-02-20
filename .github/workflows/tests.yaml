@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Install SFML
-        run: sudo apt-get install -y libsfml-dev
+        run: sudo apt-get update && sudo apt-get install -y libsfml-dev
 
       - name: Run doctest
         run: make && make test
