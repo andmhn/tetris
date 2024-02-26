@@ -14,7 +14,7 @@ TARGET_MAIN ?= tetris
 TARGET_TEST ?= tester
 
 BUILD_DIR ?= ./build
-BIN_DIR   ?= ./bin
+BIN_DIR   ?= ./exe
 SRC_DIRS  ?= ./src
 TEST_DIRS ?= ./test
 MAIN_DIR  ?= ./drivers

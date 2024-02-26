@@ -1,4 +1,4 @@
-bin/
+exe/
 build/
 .gdb_history
 *.autosave
