@@ -1,4 +1,6 @@
-#For Linux 
+# Tetris - by Anand Mohan
+
+## For Linux 
 
 you need to have sfml dependency installed on system
 
@@ -6,7 +8,7 @@ now run make command in project root directory
 
 the executables are in exe directory
 
-#For windows :
+## For windows :
 
 you only need to install msvc compiler first
 
