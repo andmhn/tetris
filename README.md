@@ -6,6 +6,22 @@
 
 ![game play](screenshots/gameplay.gif)
 
+# How to Run
+### For Windows
+get the latest release from [github releases](https://github.com/andmhn/tetris/releases)
+
+download the windows release and extract it
+
+now run tetris from inside the folder
+
+### For Linux
+install sfml library from your package repository
+
+get the latest release from [github releases](https://github.com/andmhn/tetris/releases) 
+
+download the linux release
+
+
 # Building from source
 
 ## For Linux 
