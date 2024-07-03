@@ -4,7 +4,7 @@
 
 ![game screens](screenshots/tetris_collage.png)
 
-![game play](screenshots/gameplay.mp4)
+![game play](screenshots/gameplay.gif)
 
 # Building from source
 
