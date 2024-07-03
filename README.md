@@ -1,5 +1,13 @@
 # Tetris - by Anand Mohan
 
+# Screenshots
+
+![game screens](screenshots/tetris_collage.png)
+
+![game play](screenshots/gameplay.mp4)
+
+# Building from source
+
 ## For Linux 
 
 you need to have sfml dependency installed on system
