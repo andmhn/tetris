@@ -5,3 +5,5 @@ build/
 *.zip
 compile_commands.json
 plan/
+tetris.vcxproj.user
+.vs
